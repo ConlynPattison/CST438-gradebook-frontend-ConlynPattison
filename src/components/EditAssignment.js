@@ -6,7 +6,7 @@ const EditAssignment = (props) => {
   const [message, setMessage] = useState("");
 
   const assignmentId = /\d+$/.exec(window.location.pathname)[0];
-  const headers = ["Name", "Due Date", "Course Title", "Course ID"];
+  const headers = ["Name", "Due Date"];
 
   useEffect(() => {
     fetchAssignment();
@@ -29,16 +29,6 @@ const EditAssignment = (props) => {
   const onChangeDate = (e) => {
     setMessage("");
     setAssignment((prev) => ({ ...prev, dueDate: e.target.value }));
-  };
-
-  const onChangeTitle = (e) => {
-    setMessage("");
-    setAssignment((prev) => ({ ...prev, courseTitle: e.target.value }));
-  };
-
-  const onChangeId = (e) => {
-    setMessage("");
-    setAssignment((prev) => ({ ...prev, courseId: e.target.value }));
   };
 
   const handleSubmit = async () => {
@@ -92,24 +82,6 @@ const EditAssignment = (props) => {
                   type="date"
                   placeholder="YYYY-MM-DD"
                   onChange={(e) => onChangeDate(e)}
-                />
-              </td>
-              <td>
-                <input
-                  name="title"
-                  value={assignment.courseTitle}
-                  type="text"
-                  placeholder="DEP - COURSE"
-                  onChange={(e) => onChangeTitle(e)}
-                />
-              </td>
-              <td>
-                <input
-                  name="id"
-                  value={assignment.courseId}
-                  type="number"
-                  placeholder="00000000"
-                  onChange={(e) => onChangeId(e)}
                 />
               </td>
             </tr>

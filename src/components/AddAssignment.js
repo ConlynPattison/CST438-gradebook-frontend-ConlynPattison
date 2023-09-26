@@ -8,7 +8,7 @@ const AddAssignment = (props) => {
   const [courseId, setCourseId] = useState(0);
   const [message, setMessage] = useState("");
 
-  const headers = ["Name", "Due Date", "Course Title", "Course ID"];
+  const headers = ["Name", "Due Date", "Course ID"];
 
   const onChangeName = (e) => {
     setMessage("");
@@ -20,11 +20,6 @@ const AddAssignment = (props) => {
     setDueDate(e.target.value);
   };
 
-  const onChangeTitle = (e) => {
-    setMessage("");
-    setCourseTitle(e.target.value);
-  };
-
   const onChangeId = (e) => {
     setMessage("");
     setCourseId(e.target.value);
@@ -34,7 +29,7 @@ const AddAssignment = (props) => {
     const dtoObject = {
       assignmentName,
       dueDate,
-      courseTitle,
+      courseTitle: "",
       courseId,
     };
 
@@ -95,15 +90,6 @@ const AddAssignment = (props) => {
                   type="date"
                   placeholder="YYYY-MM-DD"
                   onChange={(e) => onChangeDate(e)}
-                />
-              </td>
-              <td>
-                <input
-                  name="title"
-                  value={courseTitle}
-                  type="text"
-                  placeholder="DEP - COURSE"
-                  onChange={(e) => onChangeTitle(e)}
                 />
               </td>
               <td>
