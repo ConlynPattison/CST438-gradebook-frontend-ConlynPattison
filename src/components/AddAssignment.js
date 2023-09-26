@@ -52,13 +52,15 @@ const AddAssignment = (props) => {
         else {
           const data = await response.json();
           setMessage(data.message);
-          throw new Error(`POST assignment error: ${response.statusText}`);
+          return;
         }
       })
-      .then((data) =>
-        setMessage(
-          `Successfully created assignment with id: ${parseInt(data, 10)}`
-        )
+      .then(
+        (data) =>
+          data !== undefined &&
+          setMessage(
+            `Successfully created assignment with id: ${parseInt(data, 10)}`
+          )
       );
   };
 

@@ -50,10 +50,14 @@ const EditAssignment = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(assignment),
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.ok) {
         setMessage("Successfully updated course");
-      } else throw new Error(`POST assignment error: ${response.statusText}`);
+      } else {
+        const data = await response.json();
+        setMessage(data.message);
+        console.error(`PUT assignment error: ${response.statusText}`);
+      }
     });
   };
 
