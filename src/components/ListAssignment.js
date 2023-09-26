@@ -29,9 +29,14 @@ function ListAssignment(props) {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((data) => {
-      console.log(data);
-    });
+    })
+      .then((response) => {
+        if (response.ok)
+          setAssignments(
+            [...assignments].filter((assignment) => assignment.id !== id)
+          );
+      })
+      .catch((err) => console.error(err));
   };
 
   const headers = [
