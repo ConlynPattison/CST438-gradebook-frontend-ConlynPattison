@@ -10,14 +10,15 @@ import { SERVER_URL } from "../constants";
  */
 
 const AddAssignment = (props) => {
-  const [name, setName] = useState("");
+  const [assignmentName, setAssignmentName] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [title, setTitle] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+  const [courseId, setCourseId] = useState(0);
 
-  const headers = ["Name", "Due Date", "Course Title"];
+  const headers = ["Name", "Due Date", "Course Title", "Course ID"];
 
   const onChangeName = (e) => {
-    setName(e.target.value);
+    setAssignmentName(e.target.value);
   };
 
   const onChangeDate = (e) => {
@@ -26,12 +27,36 @@ const AddAssignment = (props) => {
   };
 
   const onChangeTitle = (e) => {
-    setTitle(e.target.value);
+    setCourseTitle(e.target.value);
   };
 
-  const handleSubmit = () => {
-    
-  }
+  const onChangeId = (e) => {
+    setCourseId(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const dtoObject = {
+      assignmentName,
+      dueDate,
+      courseTitle,
+      courseId,
+    };
+
+    fetch(`${SERVER_URL}/assignment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dtoObject),
+    })
+      .then((response) => {
+        if (response.ok) return response.text();
+        else throw new Error(`POST assignment error: ${response.statusText}`);
+      })
+      .then((data) =>
+        console.log(`Created assignment with id: ${parseInt(data, 10)}`)
+      );
+  };
 
   return (
     <div>
@@ -50,7 +75,7 @@ const AddAssignment = (props) => {
               <td>
                 <input
                   name="name"
-                  value={name}
+                  value={assignmentName}
                   type="text"
                   placeholder="Assignment Name"
                   onChange={(e) => onChangeName(e)}
@@ -68,22 +93,26 @@ const AddAssignment = (props) => {
               <td>
                 <input
                   name="title"
-                  value={title}
+                  value={courseTitle}
                   type="text"
                   placeholder="DEP - COURSE"
                   onChange={(e) => onChangeTitle(e)}
+                />
+              </td>
+              <td>
+                <input
+                  name="id"
+                  value={courseId}
+                  type="number"
+                  placeholder="00000000"
+                  onChange={(e) => onChangeId(e)}
                 />
               </td>
             </tr>
           </tbody>
         </table>
         <br />
-        <button
-          id="sgrade"
-          type="button"
-          margin="auto"
-          onClick={handleSubmit}
-        >
+        <button id="sgrade" type="button" margin="auto" onClick={handleSubmit}>
           Submit
         </button>
       </div>
