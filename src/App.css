@@ -31,7 +31,7 @@
 body {
   box-sizing: border-box;
   color: #220f5f;
-  font-family:  sans-serif;
+  font-family: sans-serif;
 }
 
 .container {
@@ -63,7 +63,7 @@ tr th {
 tr td {
   border: 1px solid #eeeeee;
   text-align: left;
-  padding:  10px;
+  padding: 10px;
 }
 
 input {
@@ -72,10 +72,19 @@ input {
   border: none;
   width: 91%;
   padding: 12px 12px;
-  font-family:  sans-serif;
+  font-family: sans-serif;
 }
 
 input:focus {
   outline: 1px solid #ccc;
   border: 1px solid #ccc;
+}
+
+.right {
+  text-align: right;
+  margin-top: 0;
+}
+
+.right input {
+  width: 10%;
 }

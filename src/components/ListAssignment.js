@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function ListAssignment(props) {
   const [assignments, setAssignments] = useState([]);
   const [message, setMessage] = useState("");
+  const [forceChecked, setForceChecked] = useState(false);
 
   useEffect(() => {
     // called once after intial render
@@ -13,6 +14,7 @@ function ListAssignment(props) {
 
   const fetchAssignments = () => {
     console.log("fetchAssignments");
+    setMessage("");
     fetch(`${SERVER_URL}/assignment`)
       .then((response) => response.json())
       .then((data) => {
@@ -22,19 +24,33 @@ function ListAssignment(props) {
       .catch((err) => console.error(err));
   };
 
+  const handleToggleCheck = (e) => {
+    setMessage("");
+    setForceChecked(e.target.checked);
+  };
+
   const handleDelete = (id) => {
+    setMessage("");
     console.log("deleteAssignment " + id);
-    fetch(`${SERVER_URL}/assignment/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok)
+    fetch(
+      `${SERVER_URL}/assignment/${id}${forceChecked ? "?force=true" : ""}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
           setAssignments(
             [...assignments].filter((assignment) => assignment.id !== id)
           );
+          setMessage("Assignment successfully deleted");
+        } else {
+          const data = await response.json();
+          setMessage(data.message);
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -86,6 +102,15 @@ function ListAssignment(props) {
         </table>
         <br />
         <Link to={`/addAssignment`}> Add Assignment </Link>
+      </div>
+      <div className="right container">
+        <label htmlFor="force"> Force Delete? </label>
+        <input
+          id="force"
+          type="checkbox"
+          value={forceChecked}
+          onChange={(e) => handleToggleCheck(e)}
+        ></input>
       </div>
     </div>
   );

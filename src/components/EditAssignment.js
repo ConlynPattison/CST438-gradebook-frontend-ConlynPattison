@@ -3,6 +3,7 @@ import { SERVER_URL } from "../constants";
 
 const EditAssignment = (props) => {
   const [assignment, setAssignment] = useState({});
+  const [message, setMessage] = useState("");
 
   const assignmentId = /\d+$/.exec(window.location.pathname)[0];
   const headers = ["Name", "Due Date", "Course Title", "Course ID"];
@@ -21,22 +22,28 @@ const EditAssignment = (props) => {
   };
 
   const onChangeName = (e) => {
+    setMessage("");
     setAssignment((prev) => ({ ...prev, assignmentName: e.target.value }));
   };
 
   const onChangeDate = (e) => {
+    setMessage("");
     setAssignment((prev) => ({ ...prev, dueDate: e.target.value }));
   };
 
   const onChangeTitle = (e) => {
+    setMessage("");
     setAssignment((prev) => ({ ...prev, courseTitle: e.target.value }));
   };
 
   const onChangeId = (e) => {
+    setMessage("");
     setAssignment((prev) => ({ ...prev, courseId: e.target.value }));
   };
 
   const handleSubmit = async () => {
+    setMessage("");
+
     fetch(`${SERVER_URL}/assignment/${assignmentId}`, {
       method: "PUT",
       headers: {
@@ -44,9 +51,9 @@ const EditAssignment = (props) => {
       },
       body: JSON.stringify(assignment),
     }).then((response) => {
-      // TODO: Add message here
-      if (response.ok);
-      else throw new Error(`POST assignment error: ${response.statusText}`);
+      if (response.ok) {
+        setMessage("Successfully updated course");
+      } else throw new Error(`POST assignment error: ${response.statusText}`);
     });
   };
 
@@ -54,6 +61,7 @@ const EditAssignment = (props) => {
     <div>
       <h3>Update Assignment</h3>
       <div margin="auto">
+        <h4>{message}&nbsp;</h4>
         <table className="Center">
           <thead>
             <tr>
