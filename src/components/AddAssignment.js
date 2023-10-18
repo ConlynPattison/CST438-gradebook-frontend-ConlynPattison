@@ -63,7 +63,7 @@ const AddAssignment = (props) => {
     <div>
       <h3>Create Assignment</h3>
       <div margin="auto">
-        <h4>{message}&nbsp;</h4>
+        <h4 id="create-message">{message}&nbsp;</h4>
         <table className="Center">
           <thead>
             <tr>
@@ -77,6 +77,7 @@ const AddAssignment = (props) => {
               <td>
                 <input
                   name="name"
+                  id="name-text"
                   value={assignmentName}
                   type="text"
                   placeholder="Assignment Name"
@@ -86,6 +87,7 @@ const AddAssignment = (props) => {
               <td>
                 <input
                   name="date"
+                  id="due-date"
                   value={dueDate}
                   type="date"
                   placeholder="YYYY-MM-DD"
@@ -95,6 +97,7 @@ const AddAssignment = (props) => {
               <td>
                 <input
                   name="id"
+                  id="course-id"
                   value={courseId}
                   type="number"
                   placeholder="00000000"

@@ -101,7 +101,7 @@ function ListAssignment(props) {
           </tbody>
         </table>
         <br />
-        <Link to={`/addAssignment`}> Add Assignment </Link>
+        <Link id="add-assignment" to={`/addAssignment`}> Add Assignment </Link>
       </div>
       <div className="right container">
         <label htmlFor="force"> Force Delete? </label>
