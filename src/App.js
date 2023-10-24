@@ -4,6 +4,8 @@ import ListAssignment from "./components/ListAssignment";
 import GradeAssignment from "./components/GradeAssignment";
 import EditAssignment from "./components/EditAssignment";
 import AddAssignment from "./components/AddAssignment";
+import Login from "./components/Authentication/Login";
+import ProtectedRoute from "./components/Authentication/ProtectedRoute";
 
 function App() {
   return (
@@ -12,10 +14,16 @@ function App() {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path="/" component={ListAssignment} />
-            <Route path="/gradeAssignment" component={GradeAssignment} />
-            <Route path="/editAssignment" component={EditAssignment} />
-            <Route path="/addAssignment" component={AddAssignment} />
+            <ProtectedRoute exact path="/" component={ListAssignment} />
+            <ProtectedRoute
+              path="/gradeAssignment"
+              component={GradeAssignment}
+            />
+            <ProtectedRoute path="/editAssignment" component={EditAssignment} />
+            <ProtectedRoute path="/addAssignment" component={AddAssignment} />
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
         </div>

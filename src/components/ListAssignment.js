@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../constants";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function ListAssignment(props) {
   const [assignments, setAssignments] = useState([]);
@@ -101,7 +101,10 @@ function ListAssignment(props) {
           </tbody>
         </table>
         <br />
-        <Link id="add-assignment" to={`/addAssignment`}> Add Assignment </Link>
+        <Link id="add-assignment" to={`/addAssignment`}>
+          {" "}
+          Add Assignment{" "}
+        </Link>
       </div>
       <div className="right container">
         <label htmlFor="force"> Force Delete? </label>
