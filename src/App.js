@@ -4,7 +4,7 @@ import ListAssignment from "./components/ListAssignment";
 import GradeAssignment from "./components/GradeAssignment";
 import EditAssignment from "./components/EditAssignment";
 import AddAssignment from "./components/AddAssignment";
-import Login from "./components/Authentication/Login";
+import Login from "./components/Login.JSX";
 import ProtectedRoute from "./components/Authentication/ProtectedRoute";
 import Logout from "./components/Authentication/Logout";
 import { useState } from "react";

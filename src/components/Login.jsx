@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useHistory } from "react-router-dom/cjs/react-router-dom";
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../constants";
 
 const Login = ({ setAuth }) => {
   const [user, setUser] = useState({ username: "", password: "" });
