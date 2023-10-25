@@ -8,6 +8,7 @@ import Login from "./components/Authentication/Login";
 import ProtectedRoute from "./components/Authentication/ProtectedRoute";
 import Logout from "./components/Authentication/Logout";
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 function App() {
   const [authenticated, setAuth] = useState(
@@ -29,7 +30,11 @@ function App() {
             <ProtectedRoute path="/editAssignment" component={EditAssignment} />
             <ProtectedRoute path="/addAssignment" component={AddAssignment} />
             <Route path="/login">
-              <Login setAuth={setAuth} />
+              {authenticated ? (
+                <Redirect to={{ pathname: "/" }} />
+              ) : (
+                <Login setAuth={setAuth} />
+              )}
             </Route>
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
