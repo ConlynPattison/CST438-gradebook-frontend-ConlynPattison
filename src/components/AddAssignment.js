@@ -8,6 +8,7 @@ const AddAssignment = (props) => {
   const [courseId, setCourseId] = useState(0);
   const [message, setMessage] = useState("");
 
+  const token = sessionStorage.getItem("token") || "";
   const headers = ["Name", "Due Date", "Course ID"];
 
   const onChangeName = (e) => {
@@ -39,6 +40,7 @@ const AddAssignment = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       body: JSON.stringify(dtoObject),
     })

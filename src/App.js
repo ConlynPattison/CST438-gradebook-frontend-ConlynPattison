@@ -6,10 +6,17 @@ import EditAssignment from "./components/EditAssignment";
 import AddAssignment from "./components/AddAssignment";
 import Login from "./components/Authentication/Login";
 import ProtectedRoute from "./components/Authentication/ProtectedRoute";
+import Logout from "./components/Authentication/Logout";
+import { useState } from "react";
 
 function App() {
+  const [authenticated, setAuth] = useState(
+    sessionStorage.getItem("token") != null
+  );
+
   return (
     <div className="App">
+      {authenticated ? <Logout setAuth={setAuth} /> : ""}
       <h2>Gradebook</h2>
       <BrowserRouter>
         <div>
@@ -22,7 +29,7 @@ function App() {
             <ProtectedRoute path="/editAssignment" component={EditAssignment} />
             <ProtectedRoute path="/addAssignment" component={AddAssignment} />
             <Route path="/login">
-              <Login />
+              <Login setAuth={setAuth} />
             </Route>
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>

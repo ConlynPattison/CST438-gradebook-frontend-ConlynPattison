@@ -7,6 +7,8 @@ function ListAssignment(props) {
   const [message, setMessage] = useState("");
   const [forceChecked, setForceChecked] = useState(false);
 
+  const token = sessionStorage.getItem("token") || "";
+
   useEffect(() => {
     // called once after intial render
     fetchAssignments();
@@ -15,7 +17,12 @@ function ListAssignment(props) {
   const fetchAssignments = () => {
     console.log("fetchAssignments");
     setMessage("");
-    fetch(`${SERVER_URL}/assignment`)
+    fetch(`${SERVER_URL}/assignment`, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("assignment length " + data.length);
@@ -38,6 +45,7 @@ function ListAssignment(props) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     )
