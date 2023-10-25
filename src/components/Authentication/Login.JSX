@@ -53,7 +53,7 @@ const Login = ({ setAuth }) => {
               </td>
               <td>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   value={user.password}
                   onChange={onChange}
@@ -64,7 +64,7 @@ const Login = ({ setAuth }) => {
         </table>
 
         <br />
-        <button id="submit" onClick={login}>
+        <button id="login-submit" onClick={login}>
           Login
         </button>
       </div>
