@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../constants";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function ListAssignment(props) {
   const [assignments, setAssignments] = useState([]);
   const [message, setMessage] = useState("");
   const [forceChecked, setForceChecked] = useState(false);
+
+  const token = sessionStorage.getItem("token") || "";
 
   useEffect(() => {
     // called once after intial render
@@ -15,7 +17,12 @@ function ListAssignment(props) {
   const fetchAssignments = () => {
     console.log("fetchAssignments");
     setMessage("");
-    fetch(`${SERVER_URL}/assignment`)
+    fetch(`${SERVER_URL}/assignment`, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("assignment length " + data.length);
@@ -38,6 +45,7 @@ function ListAssignment(props) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     )
@@ -101,7 +109,10 @@ function ListAssignment(props) {
           </tbody>
         </table>
         <br />
-        <Link to={`/addAssignment`}> Add Assignment </Link>
+        <Link id="add-assignment" to={`/addAssignment`}>
+          {" "}
+          Add Assignment{" "}
+        </Link>
       </div>
       <div className="right container">
         <label htmlFor="force"> Force Delete? </label>

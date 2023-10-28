@@ -14,6 +14,8 @@ function GradeAssignment() {
   console.log("Grade assignmentId=" + s);
   assignmentId = s;
 
+  const token = sessionStorage.getItem("token") || "";
+
   useEffect(() => {
     fetchGrades();
   }, []);
@@ -21,7 +23,12 @@ function GradeAssignment() {
   const fetchGrades = () => {
     setMessage("");
     console.log("fetchGrades " + assignmentId);
-    fetch(`${SERVER_URL}/gradebook/${assignmentId}`)
+    fetch(`${SERVER_URL}/gradebook/${assignmentId}`, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setGrades(data);
@@ -39,7 +46,7 @@ function GradeAssignment() {
     console.log("Gradebook.save ");
     fetch(`${SERVER_URL}/gradebook/${assignmentId}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Authorization: token },
       body: JSON.stringify(grades),
     })
       .then((res) => {

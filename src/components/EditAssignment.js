@@ -6,6 +6,7 @@ const EditAssignment = (props) => {
   const [message, setMessage] = useState("");
 
   const assignmentId = /\d+$/.exec(window.location.pathname)[0];
+  const token = sessionStorage.getItem("token") || "";
   const headers = ["Name", "Due Date"];
 
   useEffect(() => {
@@ -13,7 +14,12 @@ const EditAssignment = (props) => {
   }, []);
 
   const fetchAssignment = () => {
-    fetch(`${SERVER_URL}/assignment/${assignmentId}`)
+    fetch(`${SERVER_URL}/assignment/${assignmentId}`, {
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setAssignment(data);
@@ -38,6 +44,7 @@ const EditAssignment = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
       body: JSON.stringify(assignment),
     }).then(async (response) => {

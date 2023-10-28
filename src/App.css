@@ -88,3 +88,9 @@ input:focus {
 .right input {
   width: 10%;
 }
+
+.logout-container {
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: right;
+}
